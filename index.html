@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicia Sesión</title>
+    <link rel="stylesheet" href="css/styleIndex.css">
+</head>
+<body>
+    <form class="form">
+        <h2 class="form_title">Inicia Sesión</h2>
+        <div id="errorcase" class="errorcase"></div>
+        <div class="form_container">
+            <div class="form_group">
+                <input type="text" class="form_input" name="nombre" id="nombre" placeholder=" ">
+                <label for="nombre" class="form_label">Nombre:</label>
+                <span class="form_line"></span>
+            </div>
+            <div class="form_group">
+                <input type="text" class="form_input" name="apellidos" id="apellidos" placeholder=" ">
+                <label for="apellidos" class="form_label">Apellidos:</label>
+                <span class="form_line"></span>
+            </div>
+            <div class="form_group">
+                <input type="number" class="form_input" name="edad" id="edad" placeholder=" ">
+                <label for="edad" class="form_label">Edad:</label>
+                <span class="form_line"></span>
+            </div>
+            <div class="form_group">
+                <select class="form_input" name="sexo" id="sexo">
+                    <option class ="option" value="">-- Selecione su Género --</option>
+                    <option class ="option" value="Masculino">Masculino</option>
+                    <option class ="option" value="Femenino">Femenino</option>
+                    <option class ="option" value="Otro">Otro</option>
+                </select>
+                <span class="form_line"></span>
+            </div>
+            <div class="form_group">
+                <input type="email" class="form_input" name="email" id="email" placeholder=" ">
+                <label for="email" class="form_label">Email:</label>
+                <span class="form_line"></span>
+            </div>
+            <div class="form_group">
+                <input type="password" class="form_input" name="contraseña" id="contraseña" placeholder=" ">
+                <label for="contraseña" class="form_label">Contraseña:</label>
+                <span class="form_line"></span>
+            </div>
+            <div class="toggle-password-container">
+                <label name="togglePassword">Mostrar Contraseña</label>
+                <input type="checkbox" name="togglePassword" id="togglePassword">
+            </div>
+            <div class="submit-container">
+                <input class ="form_submit" type="button" value="Enviar Formulario" onclick="validar()">
+            </div>
+        </div>
+    </form>
+    <script src="js/form.js"></script>
+    <script src="js/sweetalert2.min.js"></script>
+</body>
+</html>
