@@ -1,6 +1,5 @@
 var DataFrame = dfjs.DataFrame;
 var preprocessedDF
-var selectedYear = 2009;
 
 //Confirmar exit
 function confirmarSalida() {
@@ -56,13 +55,23 @@ const dragtext = dropArea.querySelector("h2");
 const icon = dropArea.querySelector("img");
 const button = dropArea.querySelector('button');
 const inputFile = dropArea.querySelector("#inputFile");
-const loader = dropArea.querySelector("span")
+const loader = dropArea.querySelector("span");
 //Secciones
 const seccionPanel = document.getElementById("panel");
-const seccionGraficas = document.getElementById("gráficas")
-const seccionTablas = document.getElementById("tablas")
+const seccionGraficas = document.getElementById("gráficas");
+const seccionTablas = document.getElementById("tablas");
 //Sliders
-yearSliderGrafica = document.getElementById('yearSliderGrafica');
+sliderGráfica = document.getElementById('sliderGráfica');
+sliderTabla = document.getElementById('sliderTabla');
+//Span Se llenan con el valor mínimo y máximo dinámicamente
+var valueGráfica = document.getElementById('valueGráfica');
+valueGráfica.textContent = sliderGráfica.min;
+var valueTabla = document.getElementById('valueTabla');
+valueTabla.textContent = sliderGráfica.min
+var maxG = document.getElementById('maxG');
+maxG.textContent = sliderGráfica.max;
+var maxT = document.getElementById('maxT');
+maxT.textContent = sliderTabla.max;
 
 dropArea.addEventListener("mouseover", () => {
     dropArea.classList.add("drop-area-hover");
@@ -90,17 +99,17 @@ dropArea.addEventListener("click", () => {
             loader.classList.add("loader-spinning");
             icon.hidden = true;
     
-            // Espera 5 segundos antes de cambiar el mensaje
+            // Espera 3 segundos antes de cambiar el mensaje
             setTimeout(() => {
                 dragtext.textContent = "Archivo procesado";
                 loader.classList.remove("loader-spinning");
-            }, 5000);
+            }, 3000);
     
-            // Espera 6 segundos antes de procesar el archivo y resetear todo
+            // Espera 4 segundos antes de procesar el archivo y resetear todo
             setTimeout(() => {
                 processFile(inputFile.files[0]);
                 resetDropArea();
-            }, 6000);
+            }, 4000);
         }
     })
 })
@@ -154,6 +163,16 @@ dropArea.addEventListener("dragleave", (e) => {
     }
 });
 
+sliderGráfica.addEventListener('change', function() {
+    valueGráfica.textContent = sliderGráfica.value
+    showPlots();
+});
+
+sliderTabla.addEventListener('change', function() {
+    valueTabla.textContent = sliderTabla.value
+    showTable();
+});
+
 dropArea.addEventListener("drop", (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -169,17 +188,17 @@ dropArea.addEventListener("drop", (e) => {
 
     const files = e.dataTransfer.files; // Obtiene los archivos que se han arrastrado
     if (files.length > 0) {
-        // Espera 5 segundos antes de cambiar el mensaje
+        // Espera 3 segundos antes de cambiar el mensaje
         setTimeout(() => {
             dragtext.textContent = "Archivo procesado";
             loader.classList.remove("loader-spinning");
-        }, 5000);
+        }, 3000);
 
-        // Espera 6 segundos antes de procesar el archivo y resetear todo
+        // Espera 4 segundos antes de procesar el archivo y resetear todo
         setTimeout(() => {
             processFile(files[0]);
             resetDropArea();
-        }, 6000);
+        }, 4000);
     }
 
 });
@@ -246,7 +265,6 @@ function AddEventsOnContainer() {
 }
 
 function desocultarNavegación() {
-
     seccionPanel.style.display = "block";
     seccionGraficas.style.display = "block";
     seccionTablas.style.display = "block";
@@ -262,8 +280,16 @@ function desocultarNavegación() {
 
 // Función para redondear los valores del DataFrame
 function roundDigitsDF(df) {
-    return df.map(row => row.map(value => typeof value === 'number' ? parseFloat(value.toFixed(2)) : value));
+    // Aplicamos el redondeo a cada columna de ventas por separado
+    let ventasARounded = df.map(row => row.set("VentasA", parseFloat(row.get("VentasA").toFixed(2))));
+    let ventasBRounded = ventasARounded.map(row => row.set("VentasB", parseFloat(row.get("VentasB").toFixed(2))));
+    let ventasCRounded = ventasBRounded.map(row => row.set("VentasC", parseFloat(row.get("VentasC").toFixed(2))));
+    let ventasDRounded = ventasCRounded.map(row => row.set("VentasD", parseFloat(row.get("VentasD").toFixed(2))));
+
+    // Devolvemos el DataFrame con los valores redondeados
+    return ventasDRounded;
 }
+
 
 // Función para crear un DataFrame agrupado
 function groupedDF(df) {
@@ -318,15 +344,10 @@ function getDateFromDF(df) {
     return dates;
 }
 
-yearSliderGrafica.addEventListener('input', function() {
-    selectedYear = parseInt(this.value);
-    document.getElementById('yearValue').textContent = selectedYear;
-    showPlots();
-});
-
 function showPlots() {
     // Filtra el DataFrame por el año seleccionado
-    let filteredDF = preprocessedDF.filter(row => row.get('Year') >= selectedYear);
+    selectedYearGraficas = sliderGráfica.value
+    let filteredDF = preprocessedDF.filter(row => row.get('Year') >= selectedYearGraficas);
 
     // Obtenemos el array de fechas y el DataFrame agrupado
     let dates = getDateFromDF(filteredDF);
@@ -353,13 +374,18 @@ function showPlots() {
             y: groupedDataFrame.select(column).toArray().flat(),
             type: 'scatter',
             mode: 'lines+markers',
-            name: `${column} (agr.)`
+            name: `${column}`
         });
     });
 
-    // Layout para las gráficas
-    let layout = {
-        title: 'Ventas Anuales y Agrupadas por Año',
+    let layoutAnual = {
+        title: 'Ventas en total',
+        xaxis: { title: 'Año' },
+        yaxis: { title: 'Ventas' }
+    };
+
+    let layoutAgrupado = {
+        title: 'Ventas agrupadas por año',
         xaxis: { title: 'Año' },
         yaxis: { title: 'Ventas' }
     };
@@ -367,77 +393,82 @@ function showPlots() {
     let plotDivTotal = "ventasTotalesPlot";
     let plotDivAgrupada = "ventasAgrupadasPlot";
 
-    Plotly.newPlot(plotDivTotal, annualTraces, layout);
-    Plotly.newPlot(plotDivAgrupada, groupedTraces, layout);
+    Plotly.newPlot(plotDivTotal, annualTraces, layoutAnual);
+    Plotly.newPlot(plotDivAgrupada, groupedTraces, layoutAgrupado);
 }
 
-// function updateYearValue(df, value) {
-//     // Actualiza el valor mostrado
-//     document.getElementById('yearValue').textContent = value;
-
-//     // Filtra el DataFrame por el año seleccionado
-//     let filteredDF = df.filter(row => row.get('Year') === parseInt(value));
-//     console.log(filteredDF)
-//     // Ejecuta showPlots y showTable con el DataFrame filtrado
-//     showPlots(filteredDF);
-//     showTable(filteredDF);
-// }
-
-// // Añade un event listener al slider
-// document.getElementById('yearSlider').addEventListener('change', function() {
-//     if (preprocessedDF) {
-//         updateYearValue(preprocessedDF, this.value);
-//     }
-// });
-
-// // Función que se llama cuando se mueve el slider
-// function sliderChanged(year) {
-//     document.getElementById('yearDisplay').textContent = year;
-//     const filteredDF = preprocessedDF.filter(row => row.get('Year') == year);
-//     showPlots(filteredDF);
-//     // showTable(filteredDF);
-// }
-
-function showTable(year) {
+function showTable() {
     // Filtra el DataFrame por el año seleccionado
-    var filteredDF = preprocessedDF.filter(row => row.get('Year') == year);
-
-    // Redondea los valores a dos decimales
-    var roundedDF = roundDigitsDF(filteredDF);
+    selectedYearTablas = sliderTabla.value
+    let filteredDF = preprocessedDF.filter(row => row.get('Year') >= selectedYearTablas);
 
     // Obtiene el DataFrame agrupado por año
-    var grouped = groupedDF(roundedDF);
+    var grouped = groupedDF(filteredDF);
 
-    // Preparar datos para la tabla Plotly
-    const data = [
+    // Redondea los valores a dos decimales del dataframe agrupado
+    var roundedDF = roundDigitsDF(grouped);
+
+    // Redondea los valores a dos decimales del dataframe total
+    var totalDF = roundDigitsDF(filteredDF)
+
+    // Preparar datos para la tabla Plotly Total
+    const dataTotal = [
+        {
+            type: 'table',
+            header: {
+                values: [["<b>Año</b>"], ["<b>Mes</b>"], ["<b>Ventas A</b>"], ["<b>Ventas B</b>"], ["<b>Ventas C</b>"], ["<b>Ventas D</b>"]],
+                align: "center",
+                line: {width: 2, color: 'black'},
+                fill: {color: "#c03562"},
+                font: {family: "Arial", size: 12, color: "white"}
+            },
+            cells: {
+                values: totalDF.transpose().toArray(),
+                align: "center",
+                line: {color: "black", width: 2},
+                fill: {color: ["#c03562", "#e5e5e5"]},
+                font: {family: "Arial", size: 12, color: ["#e5e5e5", "black"]}
+            }
+        }
+    ];
+
+    // Preparar datos para la tabla Plotly agrupada
+    const dataAgrupada = [
         {
             type: 'table',
             header: {
                 values: [["<b>Año</b>"], ["<b>Ventas A</b>"], ["<b>Ventas B</b>"], ["<b>Ventas C</b>"], ["<b>Ventas D</b>"]],
                 align: "center",
-                line: {width: 1, color: 'black'},
-                fill: {color: "grey"},
+                line: {width: 2, color: 'black'},
+                fill: {color: "#c03562"},
                 font: {family: "Arial", size: 12, color: "white"}
             },
             cells: {
                 values: roundedDF.transpose().toArray(),
                 align: "center",
-                line: {color: "black", width: 1},
-                fill: {color: ["white", "lightgrey"]},
-                font: {family: "Arial", size: 11, color: ["black"]}
+                line: {color: "black", width: 2},
+                fill: {color: ["#c03562", "#e5e5e5"]},
+                font: {family: "Arial", size: 12, color: ["#e5e5e5", "black"]}
             }
         }
     ];
 
-    // Configuración del layout de la tabla
-    const layout = {
-        title: "Ventas por Año"
+    // Configuración del layout de las tablas
+    const layoutTotal = {
+        title: "Tabla de datos",
+    };
+
+    const layoutAgrupado = {
+        title: "Tabla de datos agrupados",
     };
 
     // Selecciona el div donde se mostrará la tabla
-    let tableDivId = 'myTableDiv';
+    let tableDivTotal = 'myTableTotal';
+    let tableDivAgrupada = 'myTableAgrupada';
 
     // Crea la tabla con Plotly
-    Plotly.newPlot(tableDivId, data, layout);
+    Plotly.newPlot(tableDivTotal, dataTotal, layoutTotal);
+
+    Plotly.newPlot(tableDivAgrupada, dataAgrupada, layoutAgrupado);    
 }
 

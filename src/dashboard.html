@@ -42,6 +42,7 @@
         </div>
     </section>
     <section class="panel" id="panel" style="display: none;">
+        <h1 class="titulo">Panel</h1>
         <div class="grid-container">
             <div class="grid-item graf">
                 <h2>Gráficas</h2>
@@ -66,22 +67,43 @@
         </div>
     </section>
     <section class="gráficas" id="gráficas" style="display: none;">
+        <h1 class="titulo">Gráficas</h1>
         <div class="gráficas-container">
-            <label for="yearSliderGrafica">Año: </label>
-            <input type="range" id="yearSliderGrafica" name="year" min="2009" max="2023" value="2009">
-            <span id="yearValue">2009</span>
-            <div id="ventasTotalesPlot" style="width:600px; height:500px;"></div>
-            <div id="ventasAgrupadasPlot" style="width:600px; height:500px;"></div>
+            <div class="container-t">
+                <label for="sliderGráfica">Selecciona el rango de años:</label>
+                <input type="range" id="sliderGráfica" name="year" min="2009" max="2023" value="2009">
+                <div>
+                    <label for="">Período seleccionado: </label>
+                    <span id="valueGráfica"> </span>
+                    <span> ~ <span id="maxG"></span></span>
+                </div>
+            </div>
+            <div class="container-g">
+                <div id="ventasTotalesPlot" class="g"></div>
+                <div id="ventasAgrupadasPlot" class="g"></div>
+            </div>
         </div>
     </section>
     <section class="tablas" id="tablas" style="display: none;">
-        <label for="yearSliderTabla">Año: </label>
-        <input type="range" id="yearSliderTabla" name="year" min="2009" max="2023" value="2009">
-        <span id="yearValue">2009</span>
-        <div id="myTableDiv" style="width:600px; height:500px;"></div>
+        <h1 class="titulo">Tablas</h1>
+        <div class="tablas-container">
+            <div class="container-t">
+                <label for="sliderTabla">Selecciona el rango de años:</label>
+                <input type="range" id="sliderTabla" name="year" min="2009" max="2023" value="2009">
+                <div>
+                    <label for="">Período seleccionado: </label>
+                    <span id="valueTabla"> </span>
+                    <span> ~ <span id="maxT"></span></span>
+                </div>
+            </div>
+            <div class="container-g">
+                <div id="myTableTotal" class="t"></div>
+                <div id="myTableAgrupada" class="t"></div>
+            </div>
+        </div>
     </section>
     <section class="información" id="información">
-        <h1>About me</h1>
+        <h1 class="titulo">About me</h1>
         <div class="caja-contenedor">
             <div class="picture">
                 <img src="../imgs/photo.png" alt="Profile picture">

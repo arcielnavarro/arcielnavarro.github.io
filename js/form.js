@@ -228,6 +228,7 @@ function usuarioRegistrado() {
         timer: 3000,
         timerProgressBar: true,
         showConfirmButton: false,
+        allowOutsideClick: false,
         willClose: () => {
             window.location.href = "src/dashboard.html";
         }
