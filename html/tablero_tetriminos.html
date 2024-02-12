@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TetriMinos</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+        <link rel="stylesheet" href="../css/styleTableroTetriminos.css">
+    </head>
+    <body>
+        <header>
+            <a href="#" class="logo">
+                <span>Tetri</span>Minos
+            </a>
+            <input type="checkbox" id="menu-bar">
+            <label for="menu-bar" class="fa fa-bars"></label>
+            <nav class="navbar">
+                <a href="menu_tetriminos.html#inicio">Inicio</a>
+                <a href="menu_tetriminos.html#estadísticas">Estadísticas</a>
+                <a href="menu_tetriminos.html#información">Info</a>
+                <a href="menu_tetriminos.html#cerrar_sesión">Salir</a>
+            </nav>
+        </header>
+        <main>
+            <div class="custom-container">
+                <div class="left-canvas">
+                    <h2 class="titulo-canvas">Retenida</h2>
+                    <canvas id="piezaRetenida"></canvas>
+                    <div class="info-panel">
+                        <div class="info-item">
+                            <span class="info-label">Nivel:</span><br><span class="valores" id="nivelActual">1</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Filas:</span><br><span class="valores" id="lineasHechas">0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Puntuación:</span><br><span class="valores" id="puntuacionActual">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="center-canvas">
+                    <div class="tablero-mensaje-container">
+                        <canvas id="canvas"></canvas>
+                        <div id="mensaje-container"></div>
+                    </div>
+                    <div class="buttons-section">
+                        <button id="btnIniciar" class="btn btn-primary btn-lg btn-custom-border" tabindex="-1"><i class="fas fa-play"></i></button>
+                        <button hidden id="btnPausar" class="btn btn-primary btn-lg btn-custom-border" tabindex="-1"><i class="fas fa-pause"></i></button>
+                        <button id="reset" class="btn btn-danger btn-lg btn-custom-border" tabindex="-1">Reiniciar</button>
+                    </div>
+                </div>
+                <div class="right-canvas">
+                    <h2 class="titulo-canvas">Siguiente</h2>
+                    <canvas id="siguientePieza"></canvas>
+                    <button id="controles" class="btn-controles">
+                        <img src="../img/controles_tetriminos.png" alt="">
+                        Controles
+                    </button>
+                </div>
+            </div>
+        </main>                                            
+        <script src="../js/sweetalert2.min.js"></script>
+        <script type="module" src="../js/Tablero.js"></script>
+    </body>
+</html>

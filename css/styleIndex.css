@@ -1,164 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap');
+
+:root{
+    --oscuro: #3a02c1;
+    --claro: #8c16c0;
+    --degradado:linear-gradient(135deg, var(--claro),var(--oscuro));
+}
 
 * {
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+    border: none;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    min-height: 100vh;
-    background-image: url('../imgs/fondo.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-}
-
-.errorcase {
-    color: #fff;
-}
-.form {
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(50px);
-    margin: auto;
-    width: 90%;
-    max-width: 400px;
-    padding: 4.5em 3em;
-    border-radius: 10px;
-    box-shadow: 0 5px 10px -5px rgb(255 255 255 / 70%);
-    text-align: center;
-}
-
-.form_title {
-    font-size: 2rem;
-    margin-bottom: .5em;
-    color: #fff;
-}
-
-.form_container {
-    margin-top: 3em;
-    display: grid;
-    gap: 2.5em;
-}
-
-.form_group {
-    position: relative;
-    --color: #fff;
-}
-
-.form_input {
-    width: 100%;
-    background: none;
-    color: #fff;
-    font-size: 1rem;
-    padding: .6em .3em;
-    border: none;
-    outline: none; /*quitar el recuadro del input al seleccionarlo*/
-    border-bottom: 1px solid var(--color);
-    font-family: 'Roboto', sans-serif;
-}
-
-.option {
-    background-color: #c03562;
-    color: #fff;
-}
-
-.toggle-password-container {
     display: flex;
     align-items: center;
-    justify-content: left;
-    color: #fff;
-    font-size: 1rem;
-    padding: .6em .3em;
+    justify-content: center;
+    flex-direction: column;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
-#togglePassword {
-    margin-left: 15px;
+::-webkit-scrollbar {
+    display: none;
 }
 
-.form_input:focus + .form_label,
-.form_input:not(:placeholder-shown) + .form_label {
-    transform: translateY(-12px) scale(.7);
-    transform-origin: left top;
-    color: #fbbba0;
-} 
-
-.form_label {
-    color: var(--color);
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    left: 5px;
-    transform: translateY(10px);
-    transition: transform .5s, color .3s;
+.parallax h1 {
+    font-size: 4rem;
+    color: white;
+    position: fixed; 
+    transform: translate(-50%, -50%);
+    transition: all 0.5s ease;
+    z-index: 3;
+    transition: top 0.05s ease-out;
 }
 
-.form_submit {
-    background: #c03562;
-    color: #fff;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: .8em 0;
-    border: none;
-    border-radius: .5em;
+.parallax h1 span {
+    color: var(--oscuro);
+    background-color: #f9f9f9;
+    padding: 0.5rem 1rem; 
+    border-top-left-radius: 3rem;
+    border-bottom-right-radius: 3rem;
+}
+
+.parallax h1 .Tetri {
+    color: var(--claro);
+    padding: 0rem;
+}
+
+.parallax {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     width: 100%;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    background: url("../parallax/fondo.svg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: top;
 }
 
-.form_line {
+.parallax img {
     position: absolute;
-    bottom: 0;
-    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.1s ease;
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
     width: 100%;
-    height: 3px;
-    background-color: #fbbba0;
-    transform: scale(0);
-    transform: left bottom;
-    transition: transform .4s;
-}
-
-.form_input:focus ~ .form_line,
-.form_input[type]:not(:placeholder-shown) ~ .form_line {
-    transform: scale(1);
-}
-
-.form_input.option-selected ~ .form_line {
-    transform: scale(1);
-}
-
-@keyframes sacudidaInput {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
-    20%, 40%, 60%, 80% { transform: translateX(10px); }
-}
-
-@keyframes sacudidaLinea {
-    0%, 100% { 
-        transform: translateX(0); 
-        background-color: #BD0000; 
-    }
-    10%, 30%, 50%, 70%, 90% { 
-        transform: translateX(-10px); 
-        background-color: #BD0000; 
-    }
-    20%, 40%, 60%, 80% { 
-        transform: translateX(10px); 
-        background-color: #BD0000;
-    }
-}
-
-.campo-error-linea {
-    animation: sacudidaLinea 1s cubic-bezier(.36,.07,.19,.97) both;
-}
-
-.campo-error {
-    animation: sacudidaInput 1s cubic-bezier(.36,.07,.19,.97) both;
-}
-
-@media (max-width: 425px) {
-    .form_title {
-        font-size: 1.8rem;
-    }
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    color: aliceblue;
+    background-color: #3a02c1;
 }

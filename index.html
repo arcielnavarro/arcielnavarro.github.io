@@ -3,58 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicia Sesión</title>
-    <link rel="stylesheet" href="css/styleIndex.css">
+    <title>TetriMinos</title>
+	<link rel="stylesheet" href="css/styleIndex.css">
 </head>
 <body>
-    <form class="form">
-        <h2 class="form_title">Inicia Sesión</h2>
-        <div id="errorcase" class="errorcase"></div>
-        <div class="form_container">
-            <div class="form_group">
-                <input type="text" class="form_input" name="nombre" id="nombre" placeholder=" ">
-                <label for="nombre" class="form_label">Nombre:</label>
-                <span class="form_line"></span>
-            </div>
-            <div class="form_group">
-                <input type="text" class="form_input" name="apellidos" id="apellidos" placeholder=" ">
-                <label for="apellidos" class="form_label">Apellidos:</label>
-                <span class="form_line"></span>
-            </div>
-            <div class="form_group">
-                <input type="number" class="form_input" name="edad" id="edad" placeholder=" ">
-                <label for="edad" class="form_label">Edad:</label>
-                <span class="form_line"></span>
-            </div>
-            <div class="form_group">
-                <select class="form_input" name="sexo" id="sexo">
-                    <option class ="option" value="">-- Selecione su Género --</option>
-                    <option class ="option" value="Masculino">Masculino</option>
-                    <option class ="option" value="Femenino">Femenino</option>
-                    <option class ="option" value="Otro">Otro</option>
-                </select>
-                <span class="form_line"></span>
-            </div>
-            <div class="form_group">
-                <input type="email" class="form_input" name="email" id="email" placeholder=" ">
-                <label for="email" class="form_label">Email:</label>
-                <span class="form_line"></span>
-            </div>
-            <div class="form_group">
-                <input type="password" class="form_input" name="contraseña" id="contraseña" placeholder=" ">
-                <label for="contraseña" class="form_label">Contraseña:</label>
-                <span class="form_line"></span>
-            </div>
-            <div class="toggle-password-container">
-                <label name="togglePassword">Mostrar Contraseña</label>
-                <input type="checkbox" name="togglePassword" id="togglePassword">
-            </div>
-            <div class="submit-container">
-                <input class ="form_submit" type="button" value="Enviar Formulario" onclick="validar()">
-            </div>
-        </div>
-    </form>
-    <script src="js/form.js"></script>
-    <script src="js/sweetalert2.min.js"></script>
+    <section id="parallax" class="parallax">
+		<!-- <img id="cubos_transparentes_izquierda" src="parallax/cubos_transparentes_izquierda.svg">
+		<img id="cubos_transparentes_abajo" src="parallax/cubos_transparentes_abajo.svg">
+		<img id="cubos_transparentes_derecha" src="parallax/cubos_transparentes_derecha.svg">
+		<img id="cubos_transparentes_arriba" src="parallax/cubos_transparentes_arriba.svg">
+		<img id="cubos_colores" src="parallax/cubos_colores.svg">
+		<img id="cubos_colores_abajo" src="parallax/cubos_colores_abajo.svg">
+		<img id="cubos_colores_izquierda" src="parallax/cubos_colores_izquierda.svg">
+		<img id="cubos_colores_izquierda_arriba" src="parallax/cubos_colores_izquierda_arriba.svg"> -->
+		<div class="titulo">
+			<h1 id="titulo">Bienvenidos a <span><span class="Tetri">Tetri</span>Minos</span></h1>
+		</div>
+	</section>
+	<section class="login">
+		<h2>Título</h2>
+		<p><span>Piezas Tetrimino: </span>El juego utiliza siete tipos diferentes de piezas llamadas "tetriminos". Cada tetrimino está compuesto por bloques cuadrados y tiene una forma única.<br>
+			<br><span>Caída de Tetriminos: </span>Los tetriminos caen desde la parte superior de la pantalla hacia abajo de manera vertical. Puedes controlar su caída y velocidad mientras se desplazan hacia abajo.<br>
+			<br><span>Movimiento: </span>Puedes mover los tetriminos hacia la izquierda o hacia la derecha para ajustar su posición horizontal. También puedes rotar los tetriminos para que encajen en el espacio disponible.<br>
+			<br><span>Objetivo: </span>El objetivo principal es completar líneas horizontales con los tetriminos. Cuando llenas una línea completa de lado a lado con bloques, esa línea desaparece y ganas puntos.<br>
+			<br><span>Puntuación: </span>Ganas puntos por cada línea que completes. La cantidad de puntos que ganas depende de la dificultad y la velocidad del juego.<br>
+			<br><span>Niveles: </span>El juego tiene múltiples niveles con una velocidad creciente de caída de los tetriminos para aumentar la dificultad a medida que avanzas.<br>
+			<br><span>Tetris: </span>Si logras eliminar cuatro líneas a la vez, se llama "Tetris" y generalmente obtienes una puntuación adicional.<br>
+			<br><span>Fin del juego:  </span>El juego termina cuando los tetriminos alcanzan la parte superior de la pantalla y no pueden encajar en el espacio disponible. En ese momento, la partida se da por perdida.
+		</p>
+		<p><span>Piezas Tetrimino: </span>El juego utiliza siete tipos diferentes de piezas llamadas "tetriminos". Cada tetrimino está compuesto por bloques cuadrados y tiene una forma única.<br>
+			<br><span>Caída de Tetriminos: </span>Los tetriminos caen desde la parte superior de la pantalla hacia abajo de manera vertical. Puedes controlar su caída y velocidad mientras se desplazan hacia abajo.<br>
+			<br><span>Movimiento: </span>Puedes mover los tetriminos hacia la izquierda o hacia la derecha para ajustar su posición horizontal. También puedes rotar los tetriminos para que encajen en el espacio disponible.<br>
+			<br><span>Objetivo: </span>El objetivo principal es completar líneas horizontales con los tetriminos. Cuando llenas una línea completa de lado a lado con bloques, esa línea desaparece y ganas puntos.<br>
+			<br><span>Puntuación: </span>Ganas puntos por cada línea que completes. La cantidad de puntos que ganas depende de la dificultad y la velocidad del juego.<br>
+			<br><span>Niveles: </span>El juego tiene múltiples niveles con una velocidad creciente de caída de los tetriminos para aumentar la dificultad a medida que avanzas.<br>
+			<br><span>Tetris: </span>Si logras eliminar cuatro líneas a la vez, se llama "Tetris" y generalmente obtienes una puntuación adicional.<br>
+			<br><span>Fin del juego:  </span>El juego termina cuando los tetriminos alcanzan la parte superior de la pantalla y no pueden encajar en el espacio disponible. En ese momento, la partida se da por perdida.
+		</p>
+		<p><span>Piezas Tetrimino: </span>El juego utiliza siete tipos diferentes de piezas llamadas "tetriminos". Cada tetrimino está compuesto por bloques cuadrados y tiene una forma única.<br>
+			<br><span>Caída de Tetriminos: </span>Los tetriminos caen desde la parte superior de la pantalla hacia abajo de manera vertical. Puedes controlar su caída y velocidad mientras se desplazan hacia abajo.<br>
+			<br><span>Movimiento: </span>Puedes mover los tetriminos hacia la izquierda o hacia la derecha para ajustar su posición horizontal. También puedes rotar los tetriminos para que encajen en el espacio disponible.<br>
+			<br><span>Objetivo: </span>El objetivo principal es completar líneas horizontales con los tetriminos. Cuando llenas una línea completa de lado a lado con bloques, esa línea desaparece y ganas puntos.<br>
+			<br><span>Puntuación: </span>Ganas puntos por cada línea que completes. La cantidad de puntos que ganas depende de la dificultad y la velocidad del juego.<br>
+			<br><span>Niveles: </span>El juego tiene múltiples niveles con una velocidad creciente de caída de los tetriminos para aumentar la dificultad a medida que avanzas.<br>
+			<br><span>Tetris: </span>Si logras eliminar cuatro líneas a la vez, se llama "Tetris" y generalmente obtienes una puntuación adicional.<br>
+			<br><span>Fin del juego:  </span>El juego termina cuando los tetriminos alcanzan la parte superior de la pantalla y no pueden encajar en el espacio disponible. En ese momento, la partida se da por perdida.
+		</p>
+	</section>
+	<script src="js/index.js"></script>
 </body>
 </html>
