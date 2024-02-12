@@ -1,0 +1,320 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+    border: none;
+}
+
+:root{
+    --oscuro: #3a02c1;
+    --claro: #b922c1;
+    --degradado:linear-gradient(135deg, var(--claro),var(--oscuro));
+}
+
+body{
+    background: url(../img/fondo_tetriminos.svg) no-repeat;
+    background-size: cover;
+    background-position: top;
+    background-attachment: fixed;
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 94px;
+    background-color: white;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+    padding: 2rem 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1000;
+}
+
+header .logo{
+    font-size: 1.91rem;
+    font-weight: bold;
+    color: var(--oscuro);
+    border-top-left-radius: 0.9rem;
+    border-bottom-right-radius: 0.9rem;
+    padding: 0.3rem;
+    text-decoration: none;
+}
+
+header .logo:hover{
+    box-shadow: 0 0 5px cyan,
+    0 0 25px cyan, 0 0 50px cyan,
+    0 0 100px cyan, 0 0 200px cyan;
+}
+
+header .logo span{
+    color:var(--claro);
+}
+
+header .navbar a{
+    font-size: 1.3rem;
+    font-weight: 550;
+    margin-left: 1.5rem;
+    color: var(--oscuro);
+    border-radius: 0.8rem;
+    padding: 0.3rem;
+    text-decoration: none;
+}
+
+header .navbar a:hover{
+    color: white;
+    background: var(--degradado);
+    box-shadow: 0 0 5px cyan,
+    0 0 15px cyan, 0 0 30px cyan,
+    0 0 60px cyan, 0 0 100px cyan;
+}
+
+header input{
+    display: none;
+}
+
+header label{
+    font-size: 3rem;
+    color: var(--oscuro);
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.tablero-mensaje-container {
+    position: relative;
+    width: 100%; 
+    height: 100%;
+}
+
+#mensaje-container {
+    position: absolute;
+    top: 56%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--degradado);
+    font-size: 1.3rem;
+    color: white;
+    border: 3px solid white;
+    padding: 10px;
+    font-weight: 500px;
+    border-radius: 5px;
+    display: none; /* Ocultar inicialmente */
+    z-index: 1001; 
+    animation-name: deslizarArriba; 
+    animation-duration: 0.5s; 
+}
+
+.conteoRegresivo {
+    width: 40px; 
+    height: 40px; 
+    text-align: center;
+}
+
+@keyframes deslizarArriba {
+    from {
+        transform: translateY(100%) translate(-50%, -50%);
+    }
+    to {
+        transform: translateY(0%) translate(-50%, -50%);
+    }
+}
+
+.custom-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-items: flex-start; 
+}
+
+.left-canvas, .right-canvas {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 25px;
+    margin-right: 20px;
+    margin-top: 180px;
+}
+
+.center-canvas {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons-section {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+#canvas{
+    margin-top: 130px;
+    border: 20px outset white;
+    position: relative;
+    z-index: 1;
+}
+
+#piezaRetenida, #siguientePieza {
+    border: 15px outset white;
+    animation: appear 1s ease-out;
+}
+
+.btn-custom-border{
+    margin: 0 1rem;
+    border: 3px solid transparent;
+}
+
+.btn-custom-border:hover {
+    border: 3px solid white;
+}
+
+.titulo-canvas {
+    font-size: 24px;
+    color: #fff; 
+    margin-bottom: 10px; 
+    text-align: center; 
+    background: var(--degradado);
+    border: 2px solid white; 
+    padding: 10px; 
+    border-radius: 8px; 
+    width: fit-content; 
+    margin: 0 auto 10px auto;
+    animation: appear 1s ease-out;
+    font-weight: 500;
+}
+
+.info-panel {
+    border: 10px outset white;
+    margin-top: 30px;
+    padding: 20px;
+    background: var(--degradado);
+    color: #fff;
+    text-align: center;
+    animation: appear 1s ease-out;
+}
+
+.info-item {
+    margin-bottom: 20px;
+}
+
+.info-label {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.valores {
+    display: inline-flex;
+    width: 120px;          
+    height: 50px;         
+    background-color: #3E3E3E;
+    border: 5px outset #fff;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.btn-controles {
+    width: 110px;
+    height: 100px;
+    border: none;
+    position: relative;
+    margin-top: 25px;
+    background: var(--degradado); 
+    border-radius: 20px;
+    border: 5px solid white;
+    text-align: center;
+    color: white;
+    animation: appear 1s ease-out;
+}
+
+.btn-controles:hover {
+    box-shadow: 0 0 5px cyan,
+    0 0 15px cyan, 0 0 30px cyan,
+    0 0 60px cyan, 0 0 100px cyan;
+}
+
+.btn-controles img {
+    width: 60px;
+    height: 60px;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media(max-width:862px){
+    header .navbar a{
+        font-size: 1.1rem;
+        margin-left: 10px;
+    }
+}
+
+@media(max-width:768px){
+    header label{
+        font-size: 2rem;
+        visibility: visible;
+        opacity: 1;
+    }
+
+    header .navbar{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 1rem 2rem;
+        border-top: .1rem solid rgba(0,0,0, .2);
+        box-shadow: 0 .5rem 1rem rgba(0,0,0, .1);
+        transform-origin: top;
+        transform: scaleY(0);
+        opacity: 0;
+        transition: .1s linear;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header .navbar a{
+        display: block;
+        margin: 0.3rem 0rem;
+        font-size: 1.2rem;
+        width: 100%;
+    }
+
+    header input:checked ~ .navbar{
+        transform: scaleY(1);
+        opacity: 1;
+    }
+
+    header input:checked ~ label::before{
+        content: '\f00d';
+    }
+
+}
+
+@media(max-width:450px){ 
+    html{
+        font-size: 49%;
+    }
+}
+  
